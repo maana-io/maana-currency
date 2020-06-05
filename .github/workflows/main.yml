@@ -24,9 +24,6 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    - name: Debug Action
-      uses: hmarr/debug-action@v1.0.0
-      
     - uses: Azure/docker-login@v1
       with:
         login-server: docker.pkg.github.com
@@ -69,9 +66,9 @@ jobs:
         renderEngine: 'kompose'
         dockerComposeFile: './docker-compose.yaml'
         kompose-version: 'latest' 
-        
-    - run: |
-        echo ${{ steps.bake.outputs }}
+    
+    - name: Debug Action
+      uses: hmarr/debug-action@v1.0.0            
 
 #     - uses: Azure/k8s-deploy@v1
 #       with:
