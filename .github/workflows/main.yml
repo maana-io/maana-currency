@@ -54,12 +54,14 @@ jobs:
         container-registry-password: ${{ secrets.GITHUB_TOKEN }}
         secret-name: demo-k8s-secret
 
-    - uses: azure/k8s-bake@v1
-      with:
-        renderEngine: 'kompose'
-        dockerComposeFile: './docker-compose.yaml'
-        kompose-version: 'latest'         
+#     - uses: azure/k8s-bake@v1
+#       with:
+#         renderEngine: 'kompose'
+#         dockerComposeFile: './docker-compose.yaml'
+#         kompose-version: 'latest'
+         
     - run: |
+        kompose convert -f docker-compose.yaml -o kompose.yaml
         ls
         
     - name: Debug Action
@@ -67,6 +69,6 @@ jobs:
 
     - uses: Azure/k8s-deploy@v1
       with:
-        manifests: ${{ steps.bake.outputs.manifestsBundle }}
+        manifests: './kompose.yaml'
         imagepullsecrets: |
           demo-k8s-secret
