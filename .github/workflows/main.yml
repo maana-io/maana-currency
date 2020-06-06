@@ -66,10 +66,17 @@ jobs:
     - name: Debug Action
       uses: hmarr/debug-action@v1.0.0            
 
-    - uses: Azure/k8s-deploy@v1
+#     - uses: Azure/k8s-deploy@v1
+#       with:
+#         manifests: ${{ steps.bake.outputs.manifestsBundle }}
+#         images: |
+#           docker.pkg.github.com/maana-io/maana-currency/maana-currency-built:${{ github.sha }}
+#         imagepullsecrets: |
+#           demo-k8s-secret
+
+    - name: deploy to cluster
+      uses: steebchen/kubectl@master
+#       env:
+#         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
-        manifests: ${{ steps.bake.outputs.manifestsBundle }}
-        images: |
-          docker.pkg.github.com/maana-io/maana-currency/maana-currency-built:${{ github.sha }}
-        imagepullsecrets: |
-          demo-k8s-secret
+        args: kubectl apply -f docker.pkg.github.com/maana-io/maana-currency/maana-currency-built:${{ github.sha }}
