@@ -38,6 +38,7 @@ jobs:
       id: login    
       
     - env:
+        APPLICATION_NAME: 'maana-currency/maana-currency-built'
         DOCKER_REGISTRY: 'docker.pkg.github.com/maana-io'
         IMAGE_NAME: 'maana-currency/maana-currency-built:${{ github.sha }}'
         VERSION_TAG: '${{ github.sha }}'
