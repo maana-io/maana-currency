@@ -62,9 +62,10 @@ jobs:
         kompose-version: 'latest'
       id: bake
 
-        
-    - name: Debug Action
-      uses: hmarr/debug-action@v1.0.0            
+    - run: |
+        ls
+        cd /home/runner/work/_temp
+        ls
 
 #     - uses: Azure/k8s-deploy@v1
 #       with:
