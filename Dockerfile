@@ -22,4 +22,5 @@ COPY . ./
 
 CMD npm start
 
+ENV PORT 8050
 EXPOSE 8050
