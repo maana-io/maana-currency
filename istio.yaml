@@ -1,36 +1,36 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: maana-money-js
+  name: maana-currency
 spec:
   ports:
   - port: 8050
     name: http
   selector:
-    app: maana-money-js
+    app: maana-currency
     
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: maana-money-js-v1
+  name: maana-currency-v1
   labels:
     version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: maana-money-js
+      app: maana-currency
       version: v1
   template:
     metadata:
       labels:
-        app: maana-money-js
+        app: maana-currency
         version: v1
     spec:
       containers:
-      - name: maana-money-js
-        image: services.azurecr.io/maana-money-js:0.0.9
+      - name: maana-currency
+        image: services.azurecr.io/maana-currency:v1.0.2
         resources:
           requests:
             cpu: "100m"
@@ -51,7 +51,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: maana-money-js
+  name: maana-currency
 spec:
   hosts:
   - "*"
@@ -60,9 +60,9 @@ spec:
   http:
   - match:
     - uri:
-        exact: /maana-money-js/graphql    
+        exact: /graphql    
     route:
     - destination:
-        host: maana-money-js
+        host: maana-currency
         port:
           number: 8050
