@@ -23,36 +23,30 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-    
+
     - uses: Azure/docker-login@v1
       with:
         login-server: docker.pkg.github.com
         password: ${{ secrets.GITHUB_TOKEN }}
         username: ${{ secrets.REGISTRY_USERNAME }}        
-    - name: set-env
-      uses: allenevans/set-env@v1.1.0
-      with:
-        # Overwrite existing environment variables
-        overwrite: true
-        DOCKER_REGISTRY: 'docker.pkg.github.com/maana-io'
-        IMAGE_NAME: 'maana-currency/maana-currency-built:${{ github.sha }}'
-        VERSION_TAG: '${{ github.sha }}'
-        EXPOSED_PORT: 8050
+        
     - uses: azure/aks-set-context@v1
       with:
           creds: '${{ secrets.ROIE_DEV_AZURE }}' # Azure credentials
           resource-group: '${{ secrets.AZURE_RESOURCE_GROUP }}'
           cluster-name: '${{ secrets.AZURE_KUBERNETES_CLUSTER }}'
       id: login    
-    
-    - run: |
+      
+    - env:
+        APPLICATION_NAME: 'maana-currency/maana-currency-built'
+        DOCKER_REGISTRY: 'docker.pkg.github.com/maana-io'
+        IMAGE_NAME: 'maana-currency/maana-currency-built:${{ github.sha }}'
+        VERSION_TAG: '${{ github.sha }}'
+        EXPOSED_PORT: 8050
+      run: |
         docker build . -t docker.pkg.github.com/maana-io/maana-currency/maana-currency-built:${{ github.sha }}
         docker push docker.pkg.github.com/maana-io/maana-currency/maana-currency-built:${{ github.sha }}
-        docker-compose config > docker-compose-resolved.yaml && mv docker-compose-resolved.yaml docker-compose.yaml
-      
-#     - uses: Azure/k8s-set-context@v1
-#       with:
-#         kubeconfig: ${{ secrets.KUBE_CONFIG }}
+        docker-compose config > docker-compose-resolved.yaml && mv docker-compose-resolved.yaml docker-compose.yaml      
         
     - uses: Azure/k8s-create-secret@v1
       with:
@@ -61,16 +55,32 @@ jobs:
         container-registry-password: ${{ secrets.GITHUB_TOKEN }}
         secret-name: demo-k8s-secret
 
+    - uses: azure/setup-kubectl@v1
+      id: install
+      
     - uses: azure/k8s-bake@v1
       with:
         renderEngine: 'kompose'
         dockerComposeFile: './docker-compose.yaml'
-        kompose-version: 'latest' 
+        kompose-version: 'latest'
+      id: bake
+
+    - run: |
+        cd /home/runner/work/_temp
+        less ${{ steps.bake.outputs.manifestsBundle }}
 
     - uses: Azure/k8s-deploy@v1
       with:
-        manifests: ${{ steps.bake.outputs.manifestsBundle }}
+        manifests: './maana-currency.yaml'
         images: |
-          docker.pkg.github.com/maana-io/maana-currency/maana-currency-built:${{ github.sha }}
+          services.azurecr.io/maana-currency:v1.0.4
+      # docker.pkg.github.com/maana-io/maana-currency/maana-currency-built:${{ github.sha }}
         imagepullsecrets: |
           demo-k8s-secret
+
+#     - name: deploy to cluster
+#       uses: steebchen/kubectl@master
+# #       env:
+# #         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+#       with:
+#         args: apply -f ${{ steps.bake.outputs.manifestsBundle }}
