@@ -37,3 +37,17 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+    - task: Kubernetes@1
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'Dev K8-latest-k8-cluster-default-1591810813534'
+        namespace: 'default'
+        command: 'apply'
+        useConfigurationFile: true
+        configuration: 'maana-currency.yaml'
+        secretType: 'dockerRegistry'
+        containerRegistryType: 'Azure Container Registry'
+        azureSubscriptionEndpointForSecrets: 'H4-Dev(c73d0ee9-3ec0-402e-b7eb-2d5a99e9f0f0)'
+        azureContainerRegistry: 'services.azurecr.io'
+        secretName: 'azure-pipeline-docker-reg-secret'
+
