@@ -20,15 +20,10 @@ items:
       service: "maana-currency"
     name: "maana-currency"
   spec:
-    selector:
-      matchLabels:
-        service: "maana-currency"
+    
     replicas: 1
     strategy: {}
-    template:
-      metadata:
-        labels:
-          service: "maana-currency"
+    template:      
       spec:
         containers:
         - image: "services.azurecr.io/maana-currency:v1.0.4"
