@@ -71,7 +71,7 @@ stages:
               action: deploy
               kubernetesServiceConnection: 'dev-kube-cluster-default'
               manifests: |
-                maana-currency.yaml                
+                '**/maana-currency.yaml'
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
