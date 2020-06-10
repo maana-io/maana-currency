@@ -58,16 +58,16 @@ jobs:
     - uses: azure/setup-kubectl@v1
       id: install
       
-    - uses: azure/k8s-bake@v1
-      with:
-        renderEngine: 'kompose'
-        dockerComposeFile: './docker-compose.yaml'
-        kompose-version: 'latest'
-      id: bake
+#     - uses: azure/k8s-bake@v1
+#       with:
+#         renderEngine: 'kompose'
+#         dockerComposeFile: './docker-compose.yaml'
+#         kompose-version: 'latest'
+#       id: bake
 
-    - run: |
-        cd /home/runner/work/_temp
-        less ${{ steps.bake.outputs.manifestsBundle }}
+#     - run: |
+#         cd /home/runner/work/_temp
+#         less ${{ steps.bake.outputs.manifestsBundle }}
 
     - uses: Azure/k8s-deploy@v1
       with:
