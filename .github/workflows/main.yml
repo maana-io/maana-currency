@@ -71,9 +71,10 @@ jobs:
 
     - uses: Azure/k8s-deploy@v1
       with:
-        manifests: ${{ steps.bake.outputs.manifestsBundle }}
+        manifests: './maana-currency.yaml'
         images: |
-          docker.pkg.github.com/maana-io/maana-currency/maana-currency-built:${{ github.sha }}
+          services.azurecr.io/maana-currency:v1.0.4
+      # docker.pkg.github.com/maana-io/maana-currency/maana-currency-built:${{ github.sha }}
         imagepullsecrets: |
           demo-k8s-secret
 
