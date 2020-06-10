@@ -39,23 +39,3 @@ items:
         restartPolicy: Always
 kind: List
 metadata: {}
-
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: maana-currency
-spec:
-  hosts:
-  - "*"
-  gateways:
-  - graphql-gateway
-  http:
-  - match:
-    - uri:
-        exact: /graphql    
-    route:
-    - destination:
-        host: maana-currency
-        port:
-          number: 8050

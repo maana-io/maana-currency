@@ -7,8 +7,11 @@ metadata:
     hasuraService: custom
   name: maana-currency
   namespace: default
-spec:
+spec:  
   replicas: 1
+  selector:
+    matchLabels:
+      app: maana-currency
   strategy: {}
   template:
     metadata:
