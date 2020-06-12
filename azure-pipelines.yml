@@ -68,7 +68,10 @@ stages:
             inputs:
               Contents: '*.yml'
               TargetFolder: $(Pipeline.Workspace)/manifests
-              
+          - task: CopyFiles@2
+            inputs:
+              Contents: '**/*.yml'
+              TargetFolder: $(Pipeline.Workspace)/manifests    
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
