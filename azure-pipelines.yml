@@ -64,6 +64,10 @@ stages:
               action: createSecret
               secretName: $(imagePullSecret)
               dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+          - task: CopyFiles@2
+            inputs:
+              Contents: '*.yml'
+              TargetFolder: $(Pipeline.Workspace)/manifests
               
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
