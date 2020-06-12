@@ -8,7 +8,7 @@ spec:
 # Insert ssh-keys for allowing users to git push
   authorizedKeys:
   - |
-    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFFpKzR5yo49aC05YYH9BLAgFJ7eLN3PoLACwKMqvKf5J9qUyx1oIADZipGz972GrTRat429+qDg+ydzheO3nOTlrhlMSCFUxrH7ymfSB9kYGR+JEMLoN7kyG552PNLe8bw+z3kYiIXcwB6LXDvgd12HIrf7WYXBtX4am4q5FuQa+SsFd9vmF9YkG047QlEQXA34gDS/pwopNWgulNw1HixsJTWFYNKyA15SGLJvyvz7zg8qVXddMGCHXRZgbKHNbKGxYdjqYLk2nyjhdn1uGyKYVA0WpSoBUxt2tUuT0XnmGvXtbQSIpS9Pf4gxQ2PoT8nrzaoSAKML+BoKo+3vTP rcohen@maana.io"
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFFpKzR5yo49aC05YYH9BLAgFJ7eLN3PoLACwKMqvKf5J9qUyx1oIADZipGz972GrTRat429+qDg+ydzheO3nOTlrhlMSCFUxrH7ymfSB9kYGR+JEMLoN7kyG552PNLe8bw+z3kYiIXcwB6LXDvgd12HIrf7WYXBtX4am4q5FuQa+SsFd9vmF9YkG047QlEQXA34gDS/pwopNWgulNw1HixsJTWFYNKyA15SGLJvyvz7zg8qVXddMGCHXRZgbKHNbKGxYdjqYLk2nyjhdn1uGyKYVA0WpSoBUxt2tUuT0XnmGvXtbQSIpS9Pf4gxQ2PoT8nrzaoSAKML+BoKo+3vTP rcohen@maana.io
 
 # Provide registry details: https://github.com/hasura/gitkube/blob/master/docs/registry.md
   registry:
