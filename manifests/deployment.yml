@@ -4,6 +4,9 @@ metadata:
   name: maanaiomaanacurrency 
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: maanaiomaanacurrency
   template:
     metadata:
       labels:
