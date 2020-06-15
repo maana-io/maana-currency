@@ -27,6 +27,9 @@ spec:
         - containerPort: 8050
           protocol: TCP
         resources: {}
+        args:
+          - "PORT=8050"
+          - "SERVICE_ID=maana-currency"
       securityContext: {}
       terminationGracePeriodSeconds: 0
 status: {}

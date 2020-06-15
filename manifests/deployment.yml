@@ -12,8 +12,21 @@ spec:
       labels:
         app: maanaiomaanacurrency 
     spec:
-      containers:
-        - name: maanaiomaanacurrency 
-          image: services.azurecr.io/maanaiomaanacurrency
+      containers:      
+        - name: maanaiomaanacurrency
+          env:
+          - name: PORT
+            value: "8050"
+          - name: SERVICE_ID
+            value: "maana-currency"
+          image: services.azurecr.io/maana-currency:v2.0.1          
           ports:
-          - containerPort: 8050
+          - containerPort: 8050                
+          resources:
+            limits:
+              cpu: 400m
+              memory: 500Mi
+            requests:
+              cpu: 400m
+              memory: 500Mi
+        
