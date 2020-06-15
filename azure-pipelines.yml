@@ -37,6 +37,7 @@ stages:
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
+        arguments: --build-arg SERVICE_ID=maana-currency-yay
         tags: |
           $(tag)
           
