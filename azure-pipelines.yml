@@ -17,6 +17,7 @@ variables:
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'services93717b03-auth'
+
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
   
@@ -36,25 +37,12 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)        
+        containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-    
-    # - task: Docker@2
-    #   inputs:
-    #     containerRegistry: 'services'
-    #     repository: 'maana-currency'
-    #     command: 'build'
-    #     Dockerfile: '**/Dockerfile'
-    #     arguments: '--build-arg PORT=8050 --build-arg SERVICE_ID=maana-currency-yay'
-    # - task: Docker@2
-    #   inputs:
-    #     containerRegistry: 'services'
-    #     repository: 'maana-currency'
-    #     command: 'push'
-    # - upload: manifests
-    #   artifact: manifests
-
+          
+    - upload: manifests
+      artifact: manifests
 
 - stage: Deploy
   displayName: Deploy stage
@@ -65,21 +53,22 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'maanaiomaanacurrency-1438.default'    
+    environment: 'maanaiomaanacurrency-1438.default'
     strategy:
       runOnce:
         deploy:
-          steps:          
+          steps:
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret
             inputs:
               action: createSecret
               secretName: $(imagePullSecret)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)          
+              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+              
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
-              action: deploy              
+              action: deploy
               manifests: |
                 $(Pipeline.Workspace)/manifests/deployment.yml
                 $(Pipeline.Workspace)/manifests/service.yml
@@ -87,3 +76,4 @@ stages:
                 $(imagePullSecret)
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
+
