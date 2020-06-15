@@ -17,7 +17,6 @@ variables:
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'services93717b03-auth'
-  TEST_ENV_VAR: 'HOPA!'
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
   
@@ -60,15 +59,7 @@ stages:
     strategy:
       runOnce:
         deploy:
-          steps:
-          - task: Bash@3
-            inputs:
-              targetType: 'inline'
-              script: |
-                # Write your commands here
-                
-                echo $TEST_ENV_VAR
-                export TEST_ENV_VAR=$TEST_ENV_VAR
+          steps:          
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret
             inputs:
@@ -78,6 +69,8 @@ stages:
               
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
+            env:
+              TEST_ENV_VAR: "YAYAYAYA"
             inputs:
               action: deploy
               manifests: |
