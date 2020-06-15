@@ -19,8 +19,7 @@ items:
     labels:
       service: "maana-currency"
     name: "maana-currency"
-  spec:
-    
+  spec:    
     replicas: 1
     strategy: {}
     template:      
