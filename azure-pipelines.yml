@@ -75,9 +75,7 @@ stages:
             inputs:
               action: createSecret
               secretName: $(imagePullSecret)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
-          - script: |            
-              echo "##vso[task.setvariable variable=TEST_ENV_VAR;]$(TEST_ENV_VAR)"    
+              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)          
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
