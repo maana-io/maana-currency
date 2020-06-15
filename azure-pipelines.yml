@@ -17,7 +17,7 @@ variables:
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'services93717b03-auth'
-
+  TEST_ENV_VAR: 'HOPA!'
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
   
@@ -44,6 +44,7 @@ stages:
     - upload: manifests
       artifact: manifests
 
+
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
@@ -54,10 +55,20 @@ stages:
     pool:
       vmImage: $(vmImageName)
     environment: 'maanaiomaanacurrency-1438.default'
+    variables:
+      TEST_ENV_VAR: 'HOPA!'
     strategy:
       runOnce:
         deploy:
           steps:
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                # Write your commands here
+                
+                echo $TEST_ENV_VAR
+                export TEST_ENV_VAR=$TEST_ENV_VAR
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret
             inputs:
