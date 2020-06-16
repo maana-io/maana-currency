@@ -16,9 +16,9 @@ spec:
         - name: maanaiomaanacurrency
           env:
           - name: PORT
-            value: "8050"
+            value: "#{PORT}#"
           - name: SERVICE_ID
-            value: "maana-currency"
+            value: "#{SERVICE_ID}#"
           image: services.azurecr.io/maana-currency:v2.0.1          
           ports:
           - containerPort: 8050                
