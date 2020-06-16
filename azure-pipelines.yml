@@ -70,6 +70,18 @@ stages:
               script: |
                 # Write your PowerShell commands here.
                 echo "##vso[task.setvariable variable=TEST_ENV_VAR]$(TEST_ENV_VAR)"    
+          - task: replacetokens@3
+            inputs:
+              rootDirectory: '$(Pipeline.Workspace)'
+              targetFiles: '**/*.yml'
+              encoding: 'auto'
+              writeBOM: true
+              actionOnMissing: 'warn'
+              keepToken: false
+              tokenPrefix: '#{'
+              tokenSuffix: '}#'
+              useLegacyPattern: false
+              enableTelemetry: true
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
