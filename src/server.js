@@ -145,7 +145,7 @@ const initServer = async options => {
 
   server.applyMiddleware({
     app,
-    path: '/maana-money-js/graphql'
+    path: `/${SELF}/graphql`
   })
 
   const httpServer = http.createServer(app)

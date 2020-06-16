@@ -1,11 +1,11 @@
 {
-  "name": "@maana-io/maana-money-js",
+  "name": "@maana-io/maana-currency",
   "author": "Maana, Inc.",
   "license": "MIT",
   "version": "0.0.2",
   "description": "Maana Q Knowledge Service Template",
   "main": "src/start.js",
-  "repository": "git@github.com:maana-io/maana-js-money.git",
+  "repository": "git@github.com:maana-io/maana-currency.git",
   "scripts": {
     "docker-build": "docker build   -t maana-service .",
     "docker-run": "docker run -p 8050:8050 maana-service",
@@ -17,7 +17,7 @@
     "deploy": "kubecraft deploy"
   },
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,css}": [

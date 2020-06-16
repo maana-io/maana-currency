@@ -1,8 +1,8 @@
 version: '3.1'
 services:
-  maana-money-js:
-    env_file: .env
+  maana-currency:
+    env: .env
     image: ${DOCKER_REGISTRY}/${APPLICATION_NAME}:${VERSION_TAG}
     restart: always
     ports:
-      - ${EXPOSED_PORT}:${EXPOSED_PORT}
+      - 8050:8050

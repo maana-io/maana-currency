@@ -45,8 +45,8 @@ export const resolver = {
 
       return {
         id: SERVICE_ID,
-        name: 'io.maana.template',
-        description: `Maana Q Knowledge Service template using ${remoteId}`
+        name: 'io.maana.currency',
+        description: `I changed the description ${remoteId}, ${process.env?.TEST_ENV_VAR}`
       }
     },
     constructCurrencyValue: async (_, { value, currency }, { client }) => {

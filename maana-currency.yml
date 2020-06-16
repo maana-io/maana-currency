@@ -1,0 +1,36 @@
+# Template for single POD deployment and associated service/load balancer
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: "maana-currency"
+  spec:
+    type: LoadBalancer
+    ports:
+    - name: "8050"
+      port: 8050
+      targetPort: 8050
+    selector:
+      service: "maana-currency"
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      service: "maana-currency"
+    name: "maana-currency"
+  spec:    
+    replicas: 1
+    strategy: {}
+    template:      
+      spec:
+        containers:
+        - image: "services.azurecr.io/maana-currency:v1.0.4"
+          name: "maana-currency"
+          ports:
+          - containerPort: 8050
+          resources: {}
+        restartPolicy: Always
+kind: List
+metadata: {}
+
