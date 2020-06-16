@@ -1,4 +1,6 @@
-# NodeJs-based Maana Q Knowledge Microservice Template
+# Maana Currency Service
+
+[![Build Status](https://dev.azure.com/rcohen/Maana%20Currency/_apis/build/status/maana-io.maana-currency?branchName=master)](https://dev.azure.com/rcohen/Maana%20Currency/_build/latest?definitionId=13&branchName=master)
 
 ## Layout
 
