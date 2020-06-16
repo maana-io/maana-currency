@@ -16,8 +16,9 @@ steps:
 - task: Kubernetes@1
   inputs:
     connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint: 'dev-kube-cluster-default'
+    kubernetesServiceEndpoint: 'dev-kube-cluster-default-5251'
     namespace: 'default'
     command: 'get'
     arguments: 'service maanaiomaanacurrency -o json'
-
+    secretType: 'dockerRegistry'
+    containerRegistryType: 'Azure Container Registry'
